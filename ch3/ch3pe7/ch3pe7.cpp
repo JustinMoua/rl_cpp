@@ -20,35 +20,21 @@ Example:
 
 #include <iostream>
 
-float fltFnGasUnitConverter(float fltKilometers, float fltLiters);
+float fltFnGasUnitConverter(float fltLitersPer100km);
 
-int main(){
+int main() {
+    float fltInpLitersPer100Km;
 
-    float fltInpKilometers;
-    float fltInpLiters;
+    std::cout << "Enter the l/100km you'd like to convert to mpg: ";
+    std::cin >> fltInpLitersPer100Km;
 
-    std::cout << "liters per 100 km to miles per gallon converter" << std::endl;
-    std::cout << "Input the liters:";
-    std::cin >> fltInpLiters;
-    std::cout << "Input the kilometers";
-    std::cin >> fltInpKilometers;
-    std::cout << std::endl;
+    float fltMpg = fltFnGasUnitConverter(fltInpLitersPer100Km);
 
-    float fltMiles, fltGallons = fltFnGasUnitConverter(fltInpKilometers, fltInpLiters);
-    std::cout << fltMiles << fltGallons;
+    std::cout << fltMpg << " mpg";
 
     return 0;
-} 
+}
 
-float fltFnGasUnitConverter(float fltKilometers, float fltLiters){
-    float fltMiles;
-    float fltGallon;
-
-    //km to miles
-    fltMiles = fltKilometers * 0.62137;
-
-    // liters to gallon
-    fltGallon = fltLiters / 3.875;
-
-    return fltMiles, fltGallon;
+float fltFnGasUnitConverter(float fltLitersPer100km) {
+    return 235.215f / fltLitersPer100km;
 }
