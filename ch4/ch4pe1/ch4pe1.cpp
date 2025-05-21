@@ -10,11 +10,12 @@ int main(){
     int intAge;
 
     std::cout << "What is your first name? ";
-    //std::getline(std::cin, strFirstName);
-    std::cin >> strFirstName; 
+    std::getline(std::cin, strFirstName);
+    //std::cin >> strFirstName; 
     
     std::cout << "What is your last name? ";
-    std::cin >> strLastName; //Seems to be a problem here. This input seems to have "skipped" (more than likely it is that the newline was still in the buffer and was read. Will have to fix later)
+    //std::cin >> strLastName; //Seems to be a problem here. This input seems to have "skipped" (more than likely it is that the newline was still in the buffer and was read. Will have to fix later)
+    std::getline(std::cin, strLastName);
 
     std::cout << "What letter grade do you deserve? ";
     std::cin >> charGrade;
@@ -42,7 +43,7 @@ char charDowngradeLetterGrade(char charRequestedLetterGrade){
     }else if(((char)tolower(charRequestedLetterGrade) == 'c')){
         charGivenLetterGrade = 'D';
     }else{
-        charGivenLetterGrade = 'A';
+        charGivenLetterGrade = '0';
     }
     
     return charGivenLetterGrade;
