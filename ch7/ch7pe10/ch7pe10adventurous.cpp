@@ -1,49 +1,22 @@
 #include <iostream>
 #include <string>
-//Those notes are from page 362 and 363 of Stephen Prata's
-//C++ textbook.
-
-//  double (*pf)(int); 
-//      - pf points to a function that takes
-//        one int argument and that returns
-//        type double.
-//      - pf points to a function that returns double.
-//      - pf is a pointer to a function that takes an int argument and returns a double.
-//      - Example: 
-//          double myfunc(int);
-//          double (*pf)(int) = myfunc;
-
-
-
-//  double *pf(int); 
-//      - pf() is a function that returns a pointer-to-double
-//      - pf is a function that takes an int argument and returns a pointer to double (double*).
-//      - Example:
-//          - double* pf(int x) { ... }
-
-
-// double pam(int);
-// double (*pf)(int);
-// pf = pam;
-// The code above has pf pointing to the pam() function.
-
-
-// double (*pf)(int) → pointer to function returning double
-// double *pf(int) → function returning pointer to double
-
-
-double calculate(double val1, double val2, double (*pf)(double pfVal1, double pfVal2) );
 
 double add(double x, double y);
-double sub(double x, double y);
-double mul(double x, double y);
-
 double loopThruIthVal(std::string pair_values, int begin, int end);
+
+double add(double a, double b);
+double sub(double a, double b);
+double mul(double a, double b);
 
 int main(){
     std::string strUsrInp;
     double dblVal1;
     double dblVal2;
+
+    //Example shown from textbook. Function that accepts two doubles and the array consists of add, sub, and mul.
+    double (*pfCalculate[3])(double, double) = { add, sub, mul };
+
+
     while (true){
         //Ask for user input.
         std::cout << "Enter a pair of numbers with space between them. Type q and click enter to quit.\nEnter here: ";
@@ -53,13 +26,6 @@ int main(){
         }
         //Parse that input
         size_t whiteSpacePos = strUsrInp.find(' ');
-
-        //Checks for white space. 
-        // if (whiteSpacePos != std::string::npos) {
-        //     std::cout << "Whitespace at: " << whiteSpacePos << std::endl;
-        // } else {
-        //     std::cout << "No Whitespace." << std::endl;
-        // }
 
         for (int i = 0; i < 2; i++){
             int begin;
@@ -80,30 +46,33 @@ int main(){
             }
         }
         
-        std::cout << dblVal1 << " + " << dblVal2 << " = " << calculate(dblVal1, dblVal2, add) << std::endl;
-        std::cout << dblVal1 << " - " << dblVal2 << " = " << calculate(dblVal1, dblVal2, sub) << std::endl;
-        std::cout << dblVal1 << " * " << dblVal2 << " = " << calculate(dblVal1, dblVal2, mul) << std::endl;
+        //create variables of doubles that store values
+        //of dblVal1 and dblVal2 being passed into the add, sub, amd mul function. 
+        //pfCalculate[0] points to the 0th address and passes dblVal1 and dblVal2
+        //into what is stored at the 0th element. In this case, it is the add() function.
+        double addResult = pfCalculate[0](dblVal1, dblVal2);
+        double subResult = pfCalculate[1](dblVal1, dblVal2);
+        double mulResult = pfCalculate[2](dblVal1, dblVal2);
 
-        // std::cout << "dblVal1: " << dblVal1 << std::endl
-        //           << "dblVal2: " << dblVal2;
-        std::cout << std::endl
-                  << std::endl;
+        std::cout << dblVal1 << " + " << dblVal2 << " = " << addResult << std::endl;
+        std::cout << dblVal1 << " - " << dblVal2 << " = " << subResult << std::endl;
+        std::cout << dblVal1 << " * " << dblVal2 << " = " << mulResult << std::endl;
+        std::cout << std::endl;
     };
     
     return 0;
 }
 
-double calculate(double val1, double val2, double (*pf)(double pfVal1, double pfVal2)){
-    return (*pf)(val1, val2);
-};
 double add(double x, double y){
     return x + y;
-};
-double sub(double x, double y){
-    return x - y;
 }
-double mul(double x, double y){
-    return x * y;
+
+double sub(double a, double b){ 
+    return a - b;
+}
+
+double mul(double a, double b){
+    return a * b; 
 }
 
 //Function to grabt he Ith value. 
